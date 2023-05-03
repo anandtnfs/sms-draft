@@ -4,6 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redirect to SMS Draft</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      flex-direction: column;
+    }
+  </style>
   <script>
     function redirectToSms() {
       const phoneNumber = "+18555841682"; // Replace with the desired phone number
@@ -17,10 +27,20 @@
         smsLink = `sms:${phoneNumber}&body=${encodedMessageBody}`; // For Android and other devices
       }
 
-      window.location.href = smsLink;
+      const result = window.location.href = smsLink;
+
+      // If the redirection didn't work, show the fallback button
+      if (!result) {
+        const fallback = document.getElementById('fallback');
+        fallback.style.display = 'block';
+      }
     }
   </script>
 </head>
 <body onload="redirectToSms()">
+  <div id="fallback" class="container" style="display: none;">
+    <p>Click the button below to create an SMS draft.</p>
+    <button onclick="window.location.href = redirectToSms();">Create SMS Draft</button>
+  </div>
 </body>
 </html>
