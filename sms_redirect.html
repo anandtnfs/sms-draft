@@ -9,7 +9,13 @@
       const phoneNumber = "+18555841682"; // Replace with the desired phone number
       const messageBody = "START"; // Replace with the desired message body
       const encodedMessageBody = encodeURIComponent(messageBody);
-      const smsLink = `sms:${phoneNumber}&body=${encodedMessageBody}`;
+      
+      let smsLink;
+      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        smsLink = `sms:${phoneNumber};body=${encodedMessageBody}`; // For iOS devices
+      } else {
+        smsLink = `sms:${phoneNumber}&body=${encodedMessageBody}`; // For Android and other devices
+      }
 
       window.location.href = smsLink;
     }
