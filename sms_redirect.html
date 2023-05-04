@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirect to SMS Draft</title>
-  <style>
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-      flex-direction: column;
-    }
-  </style>
-  <script>
-    function redirectToSms() {
-      const phoneNumber = "+919241228463"; // Replace with the desired phone number
-      const messageBody = "START"; // Replace with the desired message body
-      const encodedMessageBody = encodeURIComponent(messageBody);
-      
-      let smsLink;
-      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        smsLink = `sms:${phoneNumber};body=${encodedMessageBody}`; // For iOS devices
-      } else {
-        smsLink = `sms:${phoneNumber}&body=${encodedMessageBody}`; // For Android and other devices
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirect to SMS Draft</title>
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        flex-direction: column;
       }
+    </style>
+    <script>
+      function redirectToSms() {
+        const phoneNumber = "+919241228463"; // Replace with the desired phone number
+        const messageBody = "START"; // Replace with the desired message body
+        const encodedMessageBody = encodeURIComponent(messageBody);
 
-      const result = window.location.href = smsLink;
+        let smsLink;
+        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+          smsLink = `sms:${phoneNumber}//&body=${encodedMessageBody}`; // For iOS devices
+        } else {
+          smsLink = `sms:${phoneNumber}&body=${encodedMessageBody}`; // For Android and other devices
+        }
 
-      // If the redirection didn't work, show the fallback button
-      if (!result) {
-        const fallback = document.getElementById('fallback');
-        fallback.style.display = 'block';
+        const result = (window.location.href = smsLink);
+
+        // If the redirection didn't work, show the fallback button
+        if (!result) {
+          const fallback = document.getElementById("fallback");
+          fallback.style.display = "block";
+        }
       }
-    }
-  </script>
-</head>
-<body onload="redirectToSms()">
-  <div id="fallback" class="container" style="display: none;">
-    <p>Click the button below to create an SMS draft.</p>
-    <button onclick="window.location.href = redirectToSms();">Create SMS Draft</button>
-  </div>
-</body>
+    </script>
+  </head>
+  <body onload="redirectToSms()">
+    <div id="fallback" class="container" style="display: none">
+      <p>Click the button below to create an SMS draft.</p>
+      <button onclick="window.location.href = redirectToSms();">
+        Create SMS Draft
+      </button>
+    </div>
+  </body>
 </html>
